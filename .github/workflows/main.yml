@@ -12,43 +12,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
-name: Checkout code
-    uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    
-name: Set up Python
-    uses: actions/setup-python@v2
-    with:
-      python-version: 3.x
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
 
-    
-name: Install dependencies
-    run: |
-      python -m pip install --upgrade pip
-      pip install -r requirements.txt
-name: Run Tests
-  run: |
-    python manage.py test
-deploy:
-  needs: build
-  runs-on: ubuntu-latest
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py test
+        
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
 
     steps:
-    
-name: Checkout code
-    uses: actions/checkout@v2
-    with:
-      fetch-depth: 0
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-    
-name: Login to Heroku
-    env:
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-    run: |
-      echo "doing login to heroku"
+    - name: Login to Heroku
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        echo "doing login to heroku"
 
-    
-name: Deploy to Heroku
-    run: |
-     echo "doing deploy to heroku"
+    - name: Deploy to Heroku
+      run: |
+       echo "doing deploy to heroku"
+      
