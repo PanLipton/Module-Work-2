@@ -28,3 +28,4 @@ class RecipeViewsTest(TestCase):
         self.assertContains(response, self.recipe.description)
         self.assertContains(response, self.recipe.ingredients)
         self.assertContains(response, self.recipe.instructions)
+ 
